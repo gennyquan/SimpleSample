@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Package
+      Name="SimpleSample"
+      Manufacturer="HyperHippoDemo"
+      Version="<PACKAGEVERSION>"
+      UpgradeCode="{B11A5A8C-2F7E-43E0-A8D3-1A41AE3396D4}"
+      Scope="perMachine"
+      Language="1033">
+
+    <MediaTemplate CompressionLevel="high" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="SimpleSample" />
+    </StandardDirectory>
+
+    <Feature Id="MainFeature" Title="SimpleSample" Level="1">
+      <ComponentGroupRef Id="AppComponents" />
+    </Feature>
+
+    <ComponentGroup Id="AppComponents" Directory="INSTALLFOLDER">
+      <Files Include="C:\HyperHippoDemo\Unity\Release\**\*" />
+    </ComponentGroup>
+
+    <Property Id="ARPCOMMENTS" Value="Unity command-line build output for SimpleSample" />
+    <Property Id="ARPCONTACT" Value="HyperHippoDemo" />
+    <Property Id="ARPURLINFOABOUT" Value="https://qnflegacy.ca" />
+  </Package>
+</Wix>
