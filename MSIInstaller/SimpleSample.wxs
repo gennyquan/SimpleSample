@@ -19,7 +19,7 @@
     </Feature>
 
     <ComponentGroup Id="AppComponents" Directory="INSTALLFOLDER">
-      <Files Include="C:\HyperHippoDemo\Unity\Release\**\*" />
+      <Files Include="<RELEASEPATH>\**\*" />
     </ComponentGroup>
 
     <Property Id="ARPCOMMENTS" Value="Unity command-line build output for SimpleSample" />
