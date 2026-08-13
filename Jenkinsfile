@@ -26,7 +26,10 @@ pipeline {
                         stage('Clone Repository') {
                             steps {
                                 echo "Killing Unity Licensing Client."
-                                taskkill /F /IM Unity.Licensing.Client.exe // Prevent locokking before cleaning up
+                                script{
+                                    bat """taskkill /F /IM Unity.Licensing.Client.exe // Prevent locokking before cleaning up"""
+                                }
+                                
                                 echo "Cleaning WORKSPACE."
                                 cleanWs() 
                                 echo "WORKSPACE cleaned. Pulling from repo"
