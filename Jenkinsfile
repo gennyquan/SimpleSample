@@ -84,7 +84,7 @@ pipeline {
                                         wix eula accept wix7
                                         wix ^
                                         build -pdb none -nologo "${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs" ^
-                                        -out "${env.WORKSPACE}\\installer\\SimpleSample_${env.BUILD_VERSION}.msi" -spdb ^
+                                        -out "${env.WORKSPACE}\\installer\\SimpleSample_${env.BUILD_VERSION}.msi" ^
                                         -d PACKAGEVERSION="${env.BUILD_VERSION}" ^
                                         -d RELEASEPATH="${env.WORKSPACE}\\release"
                                     """
