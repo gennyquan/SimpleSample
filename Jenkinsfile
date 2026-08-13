@@ -27,7 +27,8 @@ pipeline {
                             steps {
                                 echo "Killing Unity Licensing Client."
                                 script{
-                                    bat """taskkill /F /IM Unity.Licensing.Client.exe // Prevent locokking before cleaning up"""
+                                     // Prevent locking before cleaning up
+                                    bat """taskkill /F /IM Unity.Licensing.Client.exe"""
                                 }
                                 
                                 echo "Cleaning WORKSPACE."
