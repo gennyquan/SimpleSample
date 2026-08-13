@@ -120,4 +120,9 @@ pipeline {
             }            
         }
     }
+    post {
+        success {
+            archiveArtifacts artifacts: 'installer/*.msi', onlyIfSuccessful: true
+        }
+    }
 }
