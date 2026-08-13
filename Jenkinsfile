@@ -83,7 +83,7 @@ pipeline {
                                     bat """
                                         wix eula accept wix7
                                         wix ^
-                                        build -nologo "${env.WORKSPACE}\MSIInstaller\SimpleSample.wxs" ^
+                                        build -nologo "${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs" ^
                                         -out "${env.WORKSPACE}\\installer\\SimpleSample.msi" ^
                                         -d PACKAGEVERSION="${env.BUILD_VERSION}" ^
                                         -d RELEASEPATH="${env.WORKSPACE}\\release"
