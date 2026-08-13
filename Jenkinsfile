@@ -122,7 +122,9 @@ pipeline {
     }
     post {
         success {
-            archiveArtifacts artifacts: 'installer/*.msi', onlyIfSuccessful: true
+            node('PhysicLap-UnityWindows') {
+                archiveArtifacts artifacts: 'installer/*.msi', onlyIfSuccessful: true
+            }
         }
     }
 }
