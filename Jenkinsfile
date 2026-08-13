@@ -64,7 +64,7 @@ pipeline {
                                     "${UnityStudioPath}Unity.exe" ^
                                     -quit -batchmode ^
                                     -projectPath "${env.WORKSPACE}" ^
-                                    -logFile "${UnityBuildLog}build.log" ^
+                                    -logFile - ^
                                     -buildWindows64Player "${env.WORKSPACE}\\release\\SimpleSample.exe"
                                 """
                             }
@@ -110,7 +110,7 @@ pipeline {
                                     bat """
                                     signtool sign /fd SHA256 /tr http://timestamp.digicert.com ^
                                     /td SHA256 /f "${env.CERT_PATH}" /p "${env.CERT_PASSWORD}" ^
-                                    "${env.WORKSPACE}\\installer\\SimpleSample.msi"
+                                    "${env.WORKSPACE}\\installer\\SimpleSample_${env.BUILD_VERSION}.msi"
                                     """
                                 }
                             }

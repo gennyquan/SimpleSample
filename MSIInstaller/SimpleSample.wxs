@@ -8,7 +8,7 @@
       Scope="perMachine"
       Language="1033">
 
-    <MediaTemplate CompressionLevel="high" />
+    <MediaTemplate CompressionLevel="high" EmbedCab="yes" />
 
     <Property Id="CREATE_DESKTOP_SHORTCUT" Value="1" Secure="yes" />
     <Property Id="LAUNCHAPPONEXIT" Value="1" Secure="yes" />
