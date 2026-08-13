@@ -26,31 +26,15 @@
     <ComponentGroup Id="AppComponents">
       <Files Include="$(var.RELEASEPATH)\**\*" />
 
-      <Component Directory="INSTALLFOLDER" Id="MainExecutableComponent">
-        <File Id="SimpleSampleExe" Source="$(var.RELEASEPATH)\SimpleSample.exe" KeyPath="yes" />
-      </Component>
-
       <Component Directory="DesktopFolder" Id="DesktopShortcutComponent" Condition="CREATE_DESKTOP_SHORTCUT = 1">
-        <File Id="SimpleSampleDesktopShortcutFile" Source="$(var.RELEASEPATH)\SimpleSample.exe" KeyPath="yes">
-          <Shortcut
-              Id="DesktopShortcut"
-              Name="SimpleSample"
-              Directory="DesktopFolder"
-              WorkingDirectory="INSTALLFOLDER"
-              Advertise="no" />
-        </File>
+        <Shortcut
+            Id="DesktopShortcut"
+            Name="SimpleSample"
+            Target="[INSTALLFOLDER]SimpleSample.exe"
+            WorkingDirectory="INSTALLFOLDER" />
+        <RegistryValue Root="HKCU" Key="Software\HyperHippoDemo\SimpleSample" Name="DesktopShortcut" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </ComponentGroup>
-
-    <CustomAction Id="LaunchApplication"
-                  FileRef="SimpleSampleExe"
-                  ExeCommand=""
-                  Return="asyncNoWait"
-                  Impersonate="no" />
-
-    <InstallExecuteSequence>
-      <Custom Action="LaunchApplication" After="InstallFinalize" Condition="(LAUNCHAPPONEXIT = 1) AND (NOT Installed)" />
-    </InstallExecuteSequence>
 
     <Property Id="ARPCOMMENTS" Value="Unity command-line build output for SimpleSample" />
     <Property Id="ARPCONTACT" Value="HyperHippoDemo" />

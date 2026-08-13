@@ -83,13 +83,13 @@ pipeline {
                                     bat """
                                         wix eula accept wix7
                                         wix ^
-                                        build -nologo "${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs" ^
-                                        -out "${env.WORKSPACE}\\installer\\SimpleSample.msi" ^
+                                        build -pdb none -nologo "${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs" ^
+                                        -out "${env.WORKSPACE}\\installer\\SimpleSample_${env.BUILD_VERSION}.msi" -spdb ^
                                         -d PACKAGEVERSION="${env.BUILD_VERSION}" ^
                                         -d RELEASEPATH="${env.WORKSPACE}\\release"
                                     """
-                                    if (fileExists("""${env.WORKSPACE}\\installer\\SimpleSample.msi""")) {
-                                        echo "Success: SimpleSample.msi was found at: ${env.WORKSPACE}\\installer\\SimpleSample.msi"
+                                    if (fileExists("""${env.WORKSPACE}\\installer\\SimpleSample_${env.BUILD_VERSION}.msi""")) {
+                                        echo "Success: SimpleSample_${env.BUILD_VERSION}.msi was found at: ${env.WORKSPACE}\\installer\\SimpleSample_${env.BUILD_VERSION}.msi"
                                     } else {
                                         error "Cannot located build artifact"
                                     }
