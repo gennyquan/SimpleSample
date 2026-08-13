@@ -25,11 +25,14 @@ pipeline {
                         }
                         stage('Clone Repository') {
                             steps {
+                                echo "Killing Unity Licensing Client."
+                                taskkill /F /IM Unity.Licensing.Client.exe // Prevent locokking before cleaning up
                                 echo "Cleaning WORKSPACE."
                                 cleanWs() 
                                 echo "WORKSPACE cleaned. Pulling from repo"
                                 checkout scm
                                 echo "Pulled from repo"
+                                
                             }
                         }
                         stage('Prepare version'){
