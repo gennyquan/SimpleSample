@@ -6,7 +6,6 @@ pipeline {
     stages {
         stage('Multiple Builds Run') {
             parallel {
-                failFast: true
                 stage('Windows Build') {
                     agent { label 'PhysicLap-UnityWindows' }
                     stages{
@@ -49,7 +48,7 @@ pipeline {
                                             def filePath="""${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs"""
                                             echo """Locating File:${filePath}"""
                                             if (!fileExists(filePath)) {
-                                                error "Target file not found: ${targetFile}"
+                                                error "Target file not found: ${filePath}"
                                             }
                                         }
                                     }
@@ -79,19 +78,19 @@ pipeline {
                                 stage("Bundle"){
                                     steps {
                                         script {
-                                            echo "WXS File: ${env:WORKSPACE}\\MSIInstaller\\SimpleSample.wxs"
-                                            echo "Output File: ${env:WORKSPACE}\\installer\\SimpleSample.msi"
+                                            echo "WXS File: ${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs"
+                                            echo "Output File: ${env.WORKSPACE}\\installer\\SimpleSample.msi"
                                             echo "PACKAGEVERSION: ${env.BUILD_VERSION}"
                                             echo "SOURCEFILES: ${env.WORKSPACE}\\release"
                                             bat """
                                                 wix ^
-                                                build -acceptEula wix7 "${env:WORKSPACE}\\MSIInstaller\\SimpleSample.wxs" ^
-                                                -out "${env:WORKSPACE}\\installer\\SimpleSample.msi" ^
+                                                build -acceptEula wix7 "${env.WORKSPACE}\\MSIInstaller\\SimpleSample.wxs" ^
+                                                -out "${env.WORKSPACE}\\installer\\SimpleSample.msi" ^
                                                 -d PACKAGEVERSION="${env.BUILD_VERSION}" ^
                                                 -d RELEASEPATH="${env.WORKSPACE}\\release"
                                             """
-                                            if (fileExists("""${env:WORKSPACE}\\installer\\SimpleSample.msi""")) {
-                                                echo "Success: SimpleSample.msi was found at: ${env:WORKSPACE}\\installer\\SimpleSample.msi"
+                                            if (fileExists("""${env.WORKSPACE}\\installer\\SimpleSample.msi""")) {
+                                                echo "Success: SimpleSample.msi was found at: ${env.WORKSPACE}\\installer\\SimpleSample.msi"
                                             } else {
                                                 error "Cannot located build artifact"
                                             }
@@ -104,8 +103,8 @@ pipeline {
                                         script {
                                             bat """
                                             signtool sign /fd SHA256 /tr http://timestamp.digicert.com ^
-                                            /td SHA256 /f "${env:CERT_PATH}" /p "${env:CERT_PASSWORD}" ^
-                                            "${env:WORKSPACE}\\installer\\SimpleSample.msi"
+                                            /td SHA256 /f "${env.CERT_PATH}" /p "${env.CERT_PASSWORD}" ^
+                                            "${env.WORKSPACE}\\installer\\SimpleSample.msi"
                                             """
                                         }
                                     }
