@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <Package
       Name="SimpleSample"
       Manufacturer="HyperHippoDemo"
@@ -10,17 +11,67 @@
 
     <MediaTemplate CompressionLevel="high" />
 
+    <Property Id="INSTALLFOLDER" Value="[ProgramFiles6432Folder]SimpleSample" Secure="yes" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="CREATE_DESKTOP_SHORTCUT" Value="1" Secure="yes" />
+    <Property Id="LAUNCHAPPONEXIT" Value="1" Secure="yes" />
+
     <StandardDirectory Id="ProgramFiles6432Folder">
       <Directory Id="INSTALLFOLDER" Name="SimpleSample" />
     </StandardDirectory>
+
+    <StandardDirectory Id="DesktopFolder" />
 
     <Feature Id="MainFeature" Title="SimpleSample" Level="1">
       <ComponentGroupRef Id="AppComponents" />
     </Feature>
 
-    <ComponentGroup Id="AppComponents" Directory="INSTALLFOLDER">
+    <ComponentGroup Id="AppComponents">
       <Files Include="$(var.RELEASEPATH)\**\*" />
+
+      <Component Directory="INSTALLFOLDER" Id="MainExecutableComponent">
+        <File Id="SimpleSampleExe" Source="$(var.RELEASEPATH)\SimpleSample.exe" KeyPath="yes" />
+      </Component>
+
+      <Component Directory="DesktopFolder" Id="DesktopShortcutComponent" Condition="CREATE_DESKTOP_SHORTCUT = 1">
+        <File Id="SimpleSampleDesktopShortcutFile" Source="$(var.RELEASEPATH)\SimpleSample.exe" KeyPath="yes">
+          <Shortcut
+              Id="DesktopShortcut"
+              Name="SimpleSample"
+              Directory="DesktopFolder"
+              WorkingDirectory="INSTALLFOLDER"
+              Advertise="no" />
+        </File>
+      </Component>
     </ComponentGroup>
+
+    <CustomAction Id="LaunchApplication"
+                  File="SimpleSampleExe"
+                  ExeCommand=""
+                  Return="asyncNoWait"
+                  Impersonate="no" />
+
+    <InstallExecuteSequence>
+      <Custom Action="LaunchApplication" After="InstallFinalize">(LAUNCHAPPONEXIT = 1) AND (NOT Installed)</Custom>
+    </InstallExecuteSequence>
+
+    <UI>
+      <Dialog Id="InstallOptionsDlg" Width="370" Height="270" Title="[ProductName] Setup">
+        <Control Type="Text" Id="Title" Width="300" Height="15" X="15" Y="15" Text="{\WixUI_Font_Title}Choose installation options" />
+        <Control Type="Text" Id="Description" Width="280" Height="30" X="25" Y="30" Text="Select the optional shortcuts and launch settings for this installation." />
+        <Control Type="CheckBox" Id="DesktopShortcutCheckBox" Width="180" Height="17" X="25" Y="60" Text="Create a desktop shortcut" Property="CREATE_DESKTOP_SHORTCUT" CheckBoxValue="1" Integer="yes" />
+        <Control Type="CheckBox" Id="LaunchAfterInstallCheckBox" Width="180" Height="17" X="25" Y="85" Text="Launch the application after installation" Property="LAUNCHAPPONEXIT" CheckBoxValue="1" Integer="yes" />
+        <Control Type="PushButton" Id="Back" Width="56" Height="17" X="180" Y="243" Text="Back" />
+        <Control Type="PushButton" Id="Next" Width="56" Height="17" X="236" Y="243" Text="Next" Default="yes" />
+        <Control Type="PushButton" Id="Cancel" Width="56" Height="17" X="300" Y="243" Text="Cancel" Cancel="yes" />
+      </Dialog>
+
+      <InstallUISequence>
+        <Show Dialog="InstallOptionsDlg" Before="VerifyReadyDlg" />
+      </InstallUISequence>
+    </UI>
+
+    <ui:WixUI Id="WixUI_InstallDir" />
 
     <Property Id="ARPCOMMENTS" Value="Unity command-line build output for SimpleSample" />
     <Property Id="ARPCONTACT" Value="HyperHippoDemo" />
