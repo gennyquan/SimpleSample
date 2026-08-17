@@ -20,6 +20,7 @@ namespace Platformer.Gameplay
             if (player.health.IsAlive)
             {
                 player.health.Die();
+                ScoreBarController.Instance?.AddDeath();
                 model.virtualCamera.Follow = null;
                 model.virtualCamera.LookAt = null;
                 // player.collider.enabled = false;
