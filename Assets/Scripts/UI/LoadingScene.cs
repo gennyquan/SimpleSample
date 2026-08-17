@@ -72,6 +72,7 @@ public class GameInitializer : MonoBehaviour
                 //startButton.gameObject
                 messageText.text = "Loading Complete! Click Start to Play!";
                 buttonText.text = "Start";
+                SessionTimerManager.Instance.StartSessionTimer(150f); // Start the 150-second timer
                 yield break;
             }
         }
@@ -84,7 +85,7 @@ public class GameInitializer : MonoBehaviour
     {
         string deviceId = SystemInfo.deviceUniqueIdentifier;
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Get($"https://192.168.1.71:9001/AppInit/{deviceId}"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get($"https://192.168.1.71:9001/Account/Init/{deviceId}"))
         {
             webRequest.certificateHandler = new BypassCertificate();
             // Send request and wait for a response without freezing the game UI
@@ -100,10 +101,28 @@ public class GameInitializer : MonoBehaviour
             {
                 // API success!
                 string jsonResponse = webRequest.downloadHandler.text;
-                Debug.Log("Account loaded successfully: " + jsonResponse);
+                try
+                {
+                    Debug.Log("Received API response: " + jsonResponse);
 
-                // TODO: You can parse your JSON here to save player stats/name
-                // PlayerAccountData data = JsonUtility.FromJson<PlayerAccountData>(jsonResponse);
+                    if (UserSessionManager.Instance == null)
+                    {
+                        Debug.LogError("UserSessionManager instance is null. Ensure it is initialized before API calls.");
+                        apiLoadingDataFailed = true;
+                        yield break;
+                    }
+                    KeyCloakAuthResponse authToken = JsonUtility.FromJson<KeyCloakAuthResponse>(jsonResponse);
+                    Debug.Log("AuthToken parsed: " + authToken.AccessToken + ", " + authToken.RefreshToken);
+
+                    UserSessionManager.Instance.InitializeAuthTokens(authToken);
+                    Debug.Log("Account loaded successfully: " + authToken);   
+                }catch (Exception ex)
+                {
+                    Debug.LogError("Failed to parse account initialization response: " + ex.Message);
+                    apiLoadingDataFailed = true;
+                    yield break;
+                }
+                
 
                 apiLoadingDataComplete = true;
             }
