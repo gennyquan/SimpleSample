@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 740091812}
   - component: {fileID: 740091811}
   - component: {fileID: 740091813}
+  - component: {fileID: 740091814}
   m_Layer: 0
   m_Name: LoadingObject
   m_TagString: Untagged
@@ -408,6 +409,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50676a5417234646935a50401fa33d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SessionTimerManager
+--- !u!114 &740091814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 740091810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83ce6492fcb944f6b8a0cfc293751cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CentralHubManager
 --- !u!1 &774978919
 GameObject:
   m_ObjectHideFlags: 0

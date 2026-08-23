@@ -10,10 +10,14 @@ public class ScoreBarController : MonoBehaviour
     public TextMeshProUGUI deathsText;
     public TextMeshProUGUI timerText;
 
+    public TextMeshProUGUI AccountIDText;
+
     private int itemsCollected = 0;
     private int deathCount = 0;
     private float elapsedTime = 0f;
     private bool isTimerRunning = true;
+
+    public bool IsPausingTime{get;set;}
 
     void Awake()
     {
@@ -23,6 +27,8 @@ public class ScoreBarController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        IsPausingTime=false;
+        AccountIDText.text=$"AccountID: {UserSessionManager.Instance.ActiveSession.Username}";
         // Set up the initial text values
         UpdateUI();
         
@@ -33,16 +39,20 @@ public class ScoreBarController : MonoBehaviour
     {
         if (isTimerRunning)
         {
-            // Add the time passed since the last frame
-            elapsedTime += Time.deltaTime;
-            UpdateTimerDisplay();
+            if (!IsPausingTime)
+            {
+                // Add the time passed since the last frame
+                elapsedTime += Time.deltaTime;
+                UpdateTimerDisplay();    
+            }
+            
         }
         
     }
      // Call this function when the player grabs an item
-    public void AddItem()
+    public void AddItem(int amount)
     {
-        itemsCollected++;
+        itemsCollected+=amount;
         UpdateUI();
     }
 
@@ -50,6 +60,12 @@ public class ScoreBarController : MonoBehaviour
     public void AddDeath()
     {
         deathCount++;
+        UpdateUI();
+    }
+
+    public void RemoveDeath()
+    {
+        deathCount=0;
         UpdateUI();
     }
 

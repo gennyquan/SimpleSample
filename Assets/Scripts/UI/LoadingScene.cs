@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking; // Required for REST API calls
-using TMPro;                  // Required for TextMeshPro
+using TMPro;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 public class GameInitializer : MonoBehaviour
 {
@@ -73,6 +75,7 @@ public class GameInitializer : MonoBehaviour
                 messageText.text = "Loading Complete! Click Start to Play!";
                 buttonText.text = "Start";
                 SessionTimerManager.Instance.StartSessionTimer(150f); // Start the 150-second timer
+                CentralHubManager.Instance.Connect();
                 yield break;
             }
         }
@@ -85,7 +88,7 @@ public class GameInitializer : MonoBehaviour
     {
         string deviceId = SystemInfo.deviceUniqueIdentifier;
 
-        using (UnityWebRequest webRequest = UnityWebRequest.Get($"https://192.168.1.71:9001/Account/Init/{deviceId}"))
+        using (UnityWebRequest webRequest = UnityWebRequest.Get($"https://aspnetauth-977736336619.us-west1.run.app/Account/Init/{deviceId}/ios"))
         {
             webRequest.certificateHandler = new BypassCertificate();
             // Send request and wait for a response without freezing the game UI
@@ -111,11 +114,94 @@ public class GameInitializer : MonoBehaviour
                         apiLoadingDataFailed = true;
                         yield break;
                     }
-                    KeyCloakAuthResponse authToken = JsonUtility.FromJson<KeyCloakAuthResponse>(jsonResponse);
+                    KeyCloakAuthResponse authToken = JsonConvert.DeserializeObject<KeyCloakAuthResponse>(jsonResponse);
                     Debug.Log("AuthToken parsed: " + authToken.AccessToken + ", " + authToken.RefreshToken);
 
                     UserSessionManager.Instance.InitializeAuthTokens(authToken);
-                    Debug.Log("Account loaded successfully: " + authToken);   
+                    Debug.Log("Account loaded successfully: " + authToken);
+                }catch (Exception ex)
+                {
+                    Debug.LogError("Failed to parse account initialization response: " + ex.Message);
+                    apiLoadingDataFailed = true;
+                    yield break;
+                }
+
+                yield return FetchAccoutInventory();
+
+                apiLoadingDataComplete = true;
+            }
+        }
+    }
+
+    private IEnumerator FetchAccoutInventory()
+    {
+        string deviceId = SystemInfo.deviceUniqueIdentifier;
+        var inventoryLoadURL=$"https://aspnetapplicationhub-977736336619.us-west1.run.app/api/inventory/loadInventory?accountId={UserSessionManager.Instance.ActiveSession.Username}&deviceId={deviceId}&platform=ios";
+        Debug.Log("Inventory Load URL: " + inventoryLoadURL);
+
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(inventoryLoadURL))
+        {
+            webRequest.certificateHandler = new BypassCertificate();
+            // Send request and wait for a response without freezing the game UI
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError || 
+                webRequest.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError("Account Inventory loading Failed: " + webRequest.error);
+                apiLoadingDataFailed = true;
+            }
+            else
+            {
+                // API success!
+                string jsonResponse = webRequest.downloadHandler.text;
+                try
+                {
+                    Debug.Log("Received API response: " + jsonResponse);
+
+                    if (UserSessionManager.Instance == null)
+                    {
+                        Debug.LogError("UserSessionManager instance is null. Ensure it is initialized before API calls.");
+                        apiLoadingDataFailed = true;
+                        yield break;
+                    }
+                    List<AccountInventory> inventory = JsonConvert.DeserializeObject<List<AccountInventory>>(jsonResponse);
+                    if (inventory.Count > 0)
+                    {
+                        foreach (var item in inventory)
+                        {
+                            switch(item.ItemId)
+                            {
+                                case 1:
+                                    UserSessionManager.Instance.ActiveSession.CollectorBoosterCount = item.Amount;
+                                    Debug.Log("Account inventory parsed: " + item.ItemId + ", " + item.Name + ", " + item.Amount);
+                                    break;
+                                case 2:
+                                    UserSessionManager.Instance.ActiveSession.DeathRemovalCount = item.Amount;
+                                    Debug.Log("Account inventory parsed: " + item.ItemId + ", " + item.Name + ", " + item.Amount);
+                                    break;
+                                case 3:
+                                    UserSessionManager.Instance.ActiveSession.FreezeTimeCount = item.Amount;
+                                    Debug.Log("Account inventory parsed: " + item.ItemId + ", " + item.Name + ", " + item.Amount);
+                                    break;
+                                case 4:
+                                    UserSessionManager.Instance.ActiveSession.InvisibleCount = item.Amount;
+                                    Debug.Log("Account inventory parsed: " + item.ItemId + ", " + item.Name + ", " + item.Amount);
+                                    break;
+                                default:
+                                    Debug.LogWarning("Unknown item ID: " + item.ItemId);
+                                    break;
+                            }
+                        Debug.Log("Account inventory parsed: " + item.ItemId + ", " + item.Name + ", " + item.Amount);
+                        }
+                    }
+                    else
+                    {
+                        Debug.Log("Account inventory parsed: empty.");
+                    }
+
+                    UserSessionManager.Instance.ActiveSession.Inventory = inventory;
+                    Debug.Log("Account loaded successfully: " + inventory);   
                 }catch (Exception ex)
                 {
                     Debug.LogError("Failed to parse account initialization response: " + ex.Message);
@@ -128,7 +214,6 @@ public class GameInitializer : MonoBehaviour
             }
         }
     }
-
     // This public function will be called when the player clicks the Start Button
     public void OnStartButtonClicked()
     {

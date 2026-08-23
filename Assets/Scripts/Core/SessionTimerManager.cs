@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using System;
 using UnityEngine.Networking; // Required for REST API calls
+using Newtonsoft.Json;
 public class SessionTimerManager : MonoBehaviour
 {
     // Static instance allows any other script to access it easily
@@ -94,7 +95,7 @@ public class SessionTimerManager : MonoBehaviour
                 {
                     Debug.Log("Renew Received API response: " + jsonResponse);
 
-                    KeyCloakAuthResponse authToken = JsonUtility.FromJson<KeyCloakAuthResponse>(jsonResponse);
+                    KeyCloakAuthResponse authToken = JsonConvert.DeserializeObject<KeyCloakAuthResponse>(jsonResponse);
                     Debug.Log("AuthToken parsed: " + authToken.AccessToken + ", " + authToken.RefreshToken);
 
                     UserSessionManager.Instance.InitializeAuthTokens(authToken);

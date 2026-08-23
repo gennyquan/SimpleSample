@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
     /// <summary>
@@ -10,10 +12,21 @@ using UnityEngine;
         // Authentication Tokens
         public string AccessToken { get; set; } = string.Empty;
         public string RefreshToken { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
 
         // Gameplay Session Tracking State
         public int CurrentItemsCollected { get; set; } = 0;
+
+        public int CollectorBoosterCount { get; set; } = 0;
+        public int DeathRemovalCount { get; set; } = 0;
+        public int FreezeTimeCount { get; set; } = 0;
+        public int InvisibleCount { get; set; } = 0;
+        
+        public bool IsDoubleCollector {get;set;}
+        public bool IsInvisible{get;set;}
         public float BestRunTime { get; set; } = 0f;
+
+        public List<AccountInventory> Inventory { get; set; } = new List<AccountInventory>();
 
         // Score Boost Multiplier (e.g., 2 for x2, 3 for x3, 4 for x4)
         private int _scoreBoostMultiplier = 1;
@@ -51,6 +64,7 @@ using UnityEngine;
         {
             AccessToken = string.Empty;
             RefreshToken = string.Empty;
+            Username = string.Empty;
             CurrentItemsCollected = 0;
             BestRunTime = 0f;
             ScoreBoostMultiplier = 1;
@@ -104,7 +118,44 @@ using UnityEngine;
 
             activeSession.AccessToken = authToken.AccessToken;
             activeSession.RefreshToken = authToken.RefreshToken;
-            Debug.Log("User credentials securely cached for the active session.");
+            activeSession.Username = ExtractUsernameFromAccessToken(authToken.AccessToken);
+            Debug.Log($"User credentials securely cached for the active session. Username: {activeSession.Username}");
+        }
+
+        /// <summary>
+        /// Decodes the JWT access token's payload claims to pull out the preferred username, without verifying the signature.
+        /// </summary>
+        private static string ExtractUsernameFromAccessToken(string accessToken)
+        {
+            try
+            {
+                string[] segments = accessToken.Split('.');
+                if (segments.Length < 2)
+                {
+                    Debug.LogError("Access token is not a well-formed JWT (missing payload segment).");
+                    return string.Empty;
+                }
+
+                string payloadJson = DecodeBase64Url(segments[1]);
+                JwtPayload payload = JsonConvert.DeserializeObject<JwtPayload>(payloadJson);
+                return payload.preferred_username;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to decode JWT access token: " + ex.Message);
+                return string.Empty;
+            }
+        }
+
+        private static string DecodeBase64Url(string input)
+        {
+            string base64 = input.Replace('-', '+').Replace('_', '/');
+            switch (base64.Length % 4)
+            {
+                case 2: base64 += "=="; break;
+                case 3: base64 += "="; break;
+            }
+            return System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(base64));
         }
 
         /// <summary>
@@ -179,6 +230,24 @@ public class KeyCloakAuthResponse
 
     public string AccessToken => access_token;
     public string RefreshToken => refresh_token;
+}
+
+[Serializable]
+public class JwtPayload
+{
+    public string preferred_username;
+    public string email;
+    public string given_name;
+    public string family_name;
+}
+
+
+[Serializable]
+public class AccountInventory
+{
+    public int ItemId;
+    public string Name;
+    public int Amount;
 }
 
 

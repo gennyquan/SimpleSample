@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Assets/Scripts/Gameplay/PlayerSpawn.cs" />
     <Compile Include="Assets/Scripts/Core/Simulation.InstanceRegister.cs" />
+    <Compile Include="Assets/Scripts/Gameplay/ItemBarController.cs" />
     <Compile Include="Assets/Mod Assets/Mod Resources/Scripts/Platformer/Jiggler.cs" />
     <Compile Include="Assets/Scripts/Gameplay/PlayerEnteredVictoryZone.cs" />
     <Compile Include="Assets/Mod Assets/Mod Resources/Scripts/Platformer/EmitParticlesOnLand.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets/Scripts/Core/Simulation.Event.cs" />
     <Compile Include="Assets/Scripts/Mechanics/EnemyController.cs" />
     <Compile Include="Assets/Scripts/Gameplay/PlayerDeath.cs" />
+    <Compile Include="Assets/Scripts/Core/CentralHubManager.cs" />
     <Compile Include="Assets/Scripts/Gameplay/PlayerTokenCollision.cs" />
     <Compile Include="Assets/Scripts/Mechanics/VictoryZone.cs" />
     <Compile Include="Assets/Scripts/Gameplay/PlayerEnemyCollision.cs" />
@@ -103,31 +105,115 @@
     <Compile Include="Assets/Scripts/Gameplay/EnemyDeath.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Protocols.Json.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.xml" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Http.Connections.Client.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.Http.Connections.Client.xml" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Features.8.0.30/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Common.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/zh-Hans/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/pt-BR/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2/lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/LICENSE.TXT" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2/LICENSE.TXT" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Connections.Abstractions.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.Connections.Abstractions.dll" />
+    <None Include="Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.1/lib/netstandard2.0/Microsoft.Bcl.TimeProvider.xml" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Protocols.Json.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll" />
+    <None Include="Assets/Packages/System.ComponentModel.Annotations.5.0.0/version.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/es/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Logging.8.0.1/lib/netstandard2.1/Microsoft.Extensions.Logging.xml" />
+    <None Include="Assets/Packages/System.ComponentModel.Annotations.5.0.0/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/System.IO.Pipelines.8.0.0/useSharedDesignerContext.txt" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
+    <None Include="Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.1/useSharedDesignerContext.txt" />
     <None Include="Assets/ThirdPartyNotice.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Logging.8.0.1/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/System.Threading.Channels.8.0.0/lib/netstandard2.1/System.Threading.Channels.xml" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Primitives.8.0.0/LICENSE.TXT" />
     <None Include="Assets/PlatformerMicrogame_README.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/lib/netstandard2.1/Microsoft.Extensions.Options.xml" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Primitives.8.0.0/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Http.Connections.Common.8.0.30/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Connections.Abstractions.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.Connections.Abstractions.xml" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Primitives.8.0.0/lib/netstandard2.0/Microsoft.Extensions.Primitives.xml" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Client.Core.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.SignalR.Client.Core.dll" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Logging.8.0.1/LICENSE.TXT" />
     <None Include="Assets/TextMesh Pro/Shaders/SDFFunctions.hlsl" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/ru/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/System.IO.Pipelines.8.0.0/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/it/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/fr/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/pl/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/System.IO.Pipelines.8.0.0/lib/netstandard2.0/System.IO.Pipelines.xml" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/zh-Hant/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/System.Threading.Channels.8.0.0/THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Common.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.xml" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF.shader" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Client.8.0.30/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Client.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll" />
+    <None Include="Assets/Packages/System.Threading.Channels.8.0.0/LICENSE.TXT" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.8.0.1/LICENSE.TXT" />
     <None Include="Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/ja/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/ko/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Connections.Abstractions.8.0.30/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.8.0.1/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.1/lib/netstandard2.0/Microsoft.Bcl.TimeProvider.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Features.8.0.30/lib/netstandard2.0/Microsoft.Extensions.Features.dll" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Logging.8.0.1/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Client.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.xml" />
     <None Include="Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc" />
+    <None Include="Assets/Packages/System.ComponentModel.Annotations.5.0.0/LICENSE.TXT" />
     <None Include="Assets/Mod Assets/Mod Resources/Shaders/SpritesHue.shader" />
+    <None Include="Assets/Packages/System.Threading.Channels.8.0.0/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.8.0.1/lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll" />
+    <None Include="Assets/Packages/System.IO.Pipelines.8.0.0/LICENSE.TXT" />
     <None Include="Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/cs/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Http.Connections.Client.8.0.30/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/System.IO.Pipelines.8.0.0/lib/netstandard2.0/System.IO.Pipelines.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/lib/netstandard2.1/Microsoft.Extensions.Options.dll" />
+    <None Include="Assets/Packages/System.Threading.Channels.8.0.0/lib/netstandard2.1/System.Threading.Channels.dll" />
+    <None Include="Assets/Packages/System.ComponentModel.Annotations.5.0.0/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Http.Connections.Common.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll" />
+    <None Include="Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.1/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Http.Connections.Common.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.xml" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Primitives.8.0.0/lib/netstandard2.0/Microsoft.Extensions.Primitives.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/tr/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets/Packages/System.ComponentModel.Annotations.5.0.0/lib/netstandard2.1/System.ComponentModel.Annotations.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2/lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.Http.Connections.Client.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.Http.Connections.Client.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/de/Microsoft.Extensions.Options.SourceGeneration.resources.dll" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Client.Core.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.SignalR.Client.Core.xml" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Common.8.0.30/THIRD-PARTY-NOTICES.TXT" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Options.8.0.2/analyzers/dotnet/roslyn4.4/cs/Microsoft.Extensions.Options.SourceGeneration.dll" />
     <None Include="Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.8.0.1/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Features.8.0.30/lib/netstandard2.0/Microsoft.Extensions.Features.xml" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/System.ComponentModel.Annotations.5.0.0/lib/netstandard2.1/System.ComponentModel.Annotations.xml" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Logging.8.0.1/lib/netstandard2.1/Microsoft.Extensions.Logging.dll" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.8.0.1/lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader" />
+    <None Include="Assets/Packages/Microsoft.Extensions.DependencyInjection.Abstractions.8.0.2/useSharedDesignerContext.txt" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Protocols.Json.8.0.30/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.Extensions.Primitives.8.0.0/THIRD-PARTY-NOTICES.TXT" />
+    <None Include="Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.1/LICENSE.TXT" />
     <None Include="Assets/TextMesh Pro/Shaders/TMP_Sprite.shader" />
+    <None Include="Assets/Packages/Microsoft.AspNetCore.SignalR.Client.Core.8.0.30/THIRD-PARTY-NOTICES.TXT" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -712,6 +798,70 @@
     </Reference>
     <Reference Include="Mono.Cecil">
       <HintPath>Library/PackageCache/com.unity.nuget.mono-cecil@ecb9724e46ff/Mono.Cecil.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Connections.Abstractions">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.Connections.Abstractions.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.Connections.Abstractions.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.TimeProvider">
+      <HintPath>Assets/Packages/Microsoft.Bcl.TimeProvider.8.0.1/lib/netstandard2.0/Microsoft.Bcl.TimeProvider.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives">
+      <HintPath>Assets/Packages/Microsoft.Extensions.Primitives.8.0.0/lib/netstandard2.0/Microsoft.Extensions.Primitives.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>Assets/Packages/Microsoft.Extensions.Options.8.0.2/lib/netstandard2.1/Microsoft.Extensions.Options.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Client">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.SignalR.Client.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Client.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Threading.Channels">
+      <HintPath>Assets/Packages/System.Threading.Channels.8.0.0/lib/netstandard2.1/System.Threading.Channels.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging">
+      <HintPath>Assets/Packages/Microsoft.Extensions.Logging.8.0.1/lib/netstandard2.1/Microsoft.Extensions.Logging.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Pipelines">
+      <HintPath>Assets/Packages/System.IO.Pipelines.8.0.0/lib/netstandard2.0/System.IO.Pipelines.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Connections.Client">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.Http.Connections.Client.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.Http.Connections.Client.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>Assets/Packages/System.ComponentModel.Annotations.5.0.0/lib/netstandard2.1/System.ComponentModel.Annotations.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Features">
+      <HintPath>Assets/Packages/Microsoft.Extensions.Features.8.0.30/lib/netstandard2.0/Microsoft.Extensions.Features.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Client.Core">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.SignalR.Client.Core.8.0.30/lib/netstandard2.1/Microsoft.AspNetCore.SignalR.Client.Core.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Connections.Common">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.Http.Connections.Common.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Common">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.SignalR.Common.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.SignalR.Protocols.Json">
+      <HintPath>Assets/Packages/Microsoft.AspNetCore.SignalR.Protocols.Json.8.0.30/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection">
+      <HintPath>Assets/Packages/Microsoft.Extensions.DependencyInjection.8.0.1/lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">

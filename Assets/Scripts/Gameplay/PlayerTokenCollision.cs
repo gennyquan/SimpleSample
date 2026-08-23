@@ -19,6 +19,15 @@ namespace Platformer.Gameplay
         public override void Execute()
         {
             AudioSource.PlayClipAtPoint(token.tokenCollectAudio, token.transform.position);
+            if (UserSessionManager.Instance.ActiveSession.IsDoubleCollector)
+            {
+                ScoreBarController.Instance?.AddItem(2);
+            }else
+            {
+                ScoreBarController.Instance?.AddItem(1);
+            }
+            
+            
         }
     }
 }
