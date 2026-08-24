@@ -26,12 +26,14 @@ pipeline {
                         stage('Clone Repository') {
                             steps {
                                 echo "Killing Unity Licensing Client."
-                                def exitCode = bat(script: 'taskkill /F /IM Unity.Licensing.Client.exe', returnStatus: true)
-                                    
-                                if (exitCode != 0) {
-                                    echo "Command failed with code ${exitCode}, skipping error..."
+                                script {
+                                    def exitCode = bat(script: 'taskkill /F /IM Unity.Licensing.Client.exe', returnStatus: true)
+
+                                    if (exitCode != 0) {
+                                        echo "Unity Licensing Client was not running."
+                                    }
                                 }
-                               
+
                                 echo "Cleaning WORKSPACE."
                                 cleanWs() 
                                 echo "WORKSPACE cleaned. Pulling from repo"
@@ -117,15 +119,13 @@ pipeline {
                             }
                         }
                     }
+                    post {
+                        success {
+                            archiveArtifacts artifacts: 'installer/*.msi', onlyIfSuccessful: true
+                        }
+                    }
                 }
             }            
-        }
-    }
-    post {
-        success {
-            node('PhysicLap-UnityWindows') {
-                archiveArtifacts artifacts: 'installer/*.msi', onlyIfSuccessful: true
-            }
         }
     }
 }
