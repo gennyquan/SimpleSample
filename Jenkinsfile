@@ -26,11 +26,12 @@ pipeline {
                         stage('Clone Repository') {
                             steps {
                                 echo "Killing Unity Licensing Client."
-                                script{
-                                     // Prevent locking before cleaning up
-                                    bat """taskkill /F /IM Unity.Licensing.Client.exe || echo Unity Licensing Client is not running."""
+                                def exitCode = bat(script: 'taskkill /F /IM Unity.Licensing.Client.exe', returnStatus: true)
+                                    
+                                if (exitCode != 0) {
+                                    echo "Command failed with code ${exitCode}, skipping error..."
                                 }
-                                
+                               
                                 echo "Cleaning WORKSPACE."
                                 cleanWs() 
                                 echo "WORKSPACE cleaned. Pulling from repo"
