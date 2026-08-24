@@ -199,7 +199,7 @@ public class ItemBarController : MonoBehaviour
                     itemInUsed = true;
                     itemRemainingTime = itemEffectDuration;
                     UserSessionManager.Instance.ActiveSession.InvisibleCount--;
-                    ItemInUseText.text = "Invisible in use";
+                    ItemInUseText.text = "Invincible in use";
                     ItemInUseCanvas.SetActive(true); // Initially hide the item in use canvas
                     UserSessionManager.Instance.ActiveSession.IsInvisible=true;
                     UpdateUI();
@@ -212,7 +212,7 @@ public class ItemBarController : MonoBehaviour
         }
         else if (UserSessionManager.Instance.ActiveSession.InvisibleCount <= 0)
         {
-            Debug.LogWarning("No Invisible items left to use!");
+            Debug.LogWarning("No Invincible items left to use!");
         }
     }
 
@@ -247,7 +247,7 @@ public class ItemBarController : MonoBehaviour
         collectorBoosterText.text = "Collector Booster: " + UserSessionManager.Instance.ActiveSession.CollectorBoosterCount;
         deathRemovalText.text = "Death Removal: " + UserSessionManager.Instance.ActiveSession.DeathRemovalCount;
         freezeTimeText.text = "Freeze Time: " + UserSessionManager.Instance.ActiveSession.FreezeTimeCount;
-        invisibleText.text = "Invisible: " + UserSessionManager.Instance.ActiveSession.InvisibleCount;
+        invisibleText.text = "Invincible: " + UserSessionManager.Instance.ActiveSession.InvisibleCount;
     }
     private IEnumerator SendItemUse(int itemId, Action<bool> onResult = null)
     {
